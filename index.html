@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #f7f4ee; font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #3a372f; -webkit-font-smoothing: antialiased; }
+  a { color: #6f7f6a; text-decoration: none; }
+  a:hover { color: #4f5c4b; }
+  ::selection { background: #dbe4d8; }
+  image-slot { --radius: 0; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; display:flex; flex-direction:column;">
+
+  <!-- ================= HEADER ================= -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(247,244,238,0.86); backdrop-filter:blur(10px); border-bottom:1px solid #e6e0d4;">
+    <div style="max-width:1240px; margin:0 auto; padding:0 32px; height:76px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <button onClick="{{ goHome }}" style="display:flex; align-items:center; gap:12px; background:none; border:none; cursor:pointer; padding:0;">
+        <span style="width:40px; height:40px; border-radius:50%; background:#6f7f6a; color:#f7f4ee; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:0.5px;">jk</span>
+        <span style="display:flex; flex-direction:column; align-items:flex-start; line-height:1;">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:20px; letter-spacing:0.2px; color:#3a372f;">JK &amp; Clay</span>
+          <span style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#a59f90; margin-top:3px;">handmade ceramics</span>
+        </span>
+      </button>
+
+      <nav style="display:flex; align-items:center; gap:34px;">
+        <button onClick="{{ goHome }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:{{ homeColor }};">Home</button>
+        <button onClick="{{ goShop }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:{{ shopColor }};">Shop</button>
+        <a href="#story" onClick="{{ goHome }}" style="font-size:15px; color:#3a372f;">Our story</a>
+        <button onClick="{{ goBlog }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:{{ blogColor }};">Blog</button>
+        <button onClick="{{ goLab }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:15px; color:{{ labColor }};">Lab Journal</button>
+      </nav>
+
+      <div style="display:flex; align-items:center; gap:18px;">
+        <button aria-label="Search" style="background:none; border:none; cursor:pointer; color:#6b665b; display:flex;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4-4"></path></svg>
+        </button>
+        <button onClick="{{ addToCart }}" aria-label="Cart" style="position:relative; background:none; border:none; cursor:pointer; color:#6b665b; display:flex;">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6h15l-1.5 9h-12z"></path><path d="M6 6L5 3H2"></path><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="18" cy="20" r="1.3" fill="currentColor" stroke="none"></circle></svg>
+          <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span style="position:absolute; top:-7px; right:-9px; background:#c08a6a; color:#fff; font-size:11px; font-weight:600; min-width:17px; height:17px; padding:0 4px; border-radius:9px; display:flex; align-items:center; justify-content:center;">{{ cart }}</span></sc-if>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main style="flex:1;">
+
+  <!-- ================= HOME ================= -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+
+    <!-- Hero -->
+    <section style="max-width:1240px; margin:0 auto; padding:64px 32px 40px; display:grid; grid-template-columns:1fr 1.05fr; gap:56px; align-items:center;">
+      <div>
+        <span style="display:inline-flex; align-items:center; gap:8px; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#8a9284; margin-bottom:22px;">
+          <span style="width:26px; height:1px; background:#b7bfae;"></span>Made by hand in Germany
+        </span>
+        <h1 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:58px; line-height:1.04; letter-spacing:-1px; margin:0 0 22px; color:#33302a; text-wrap:balance;">Quiet, tender ceramics for your home.</h1>
+        <p style="font-size:18px; line-height:1.6; color:#6b665b; max-width:460px; margin:0 0 34px;">Small-batch stoneware thrown one piece at a time — soft glazes, gentle textures, and colours that feel like morning light. No two are ever quite alike.</p>
+        <div style="display:flex; gap:14px; align-items:center;">
+          <button onClick="{{ goShop }}" style="background:#6f7f6a; color:#f7f4ee; border:none; cursor:pointer; font-family:inherit; font-size:16px; font-weight:500; padding:15px 30px; border-radius:40px;" style-hover="background:#5c6a58;">Shop the collection</button>
+          <a href="#story" style="font-size:16px; color:#3a372f; border-bottom:1px solid #c9c2b2; padding-bottom:3px;">Meet the maker</a>
+        </div>
+        <div style="display:flex; gap:34px; margin-top:46px;">
+          <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-size:26px; font-weight:600; color:#33302a;">288+</div><div style="font-size:13px; color:#9a9384; margin-top:2px;">happy homes</div></div>
+          <div style="width:1px; background:#e0d9cb;"></div>
+          <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-size:26px; font-weight:600; color:#33302a;">4.9★</div><div style="font-size:13px; color:#9a9384; margin-top:2px;">from 101 reviews</div></div>
+          <div style="width:1px; background:#e0d9cb;"></div>
+          <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-size:26px; font-weight:600; color:#33302a;">1 of 1</div><div style="font-size:13px; color:#9a9384; margin-top:2px;">every piece unique</div></div>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <div style="position:relative; aspect-ratio:4/5; border-radius:220px 220px 24px 24px; overflow:hidden; background:#e7e1d4;">
+          <sc-if value="{{ heroImage }}" hint-placeholder-val="{{ false }}">{{ heroEl }}</sc-if>
+          <sc-if value="{{ noHeroImage }}" hint-placeholder-val="{{ true }}"><image-slot id="hero" shape="rect" fit="cover" placeholder="Drop your hero pottery photo"></image-slot></sc-if>
+        </div>
+        <div style="position:absolute; bottom:26px; left:-26px; background:#fff; border-radius:18px; padding:16px 20px; box-shadow:0 18px 40px -18px rgba(90,80,60,0.4); display:flex; align-items:center; gap:13px;">
+          <span style="width:38px; height:38px; border-radius:50%; background:#dbe4d8; display:flex; align-items:center; justify-content:center; color:#5c6a58;">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-4.5-9.5-9A5 5 0 0 1 12 6a5 5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"></path></svg>
+          </span>
+          <div style="line-height:1.3;"><div style="font-size:14px; font-weight:600; color:#33302a;">Wheel-thrown</div><div style="font-size:12px; color:#9a9384;">glazed &amp; fired in studio</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category strip -->
+    <section style="max-width:1240px; margin:0 auto; padding:30px 32px 20px;">
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+        <sc-for list="{{ categories }}" as="c" hint-placeholder-count="4">
+          <button onClick="{{ c.go }}" style="text-align:left; cursor:pointer; border:1px solid #e6e0d4; background:{{ c.bg }}; border-radius:20px; padding:24px; display:flex; flex-direction:column; gap:8px; min-height:150px; justify-content:flex-end;" style-hover="border-color:#c9c2b2;">
+            <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:22px; font-weight:600; color:#33302a;">{{ c.label }}</span>
+            <span style="font-size:13px; color:#7c7566; display:flex; align-items:center; gap:6px;">{{ c.count }} pieces <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Featured -->
+    <section style="max-width:1240px; margin:0 auto; padding:52px 32px 20px;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:30px;">
+        <div>
+          <span style="font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#8a9284;">Fresh from the kiln</span>
+          <h2 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:36px; letter-spacing:-0.5px; margin:8px 0 0; color:#33302a;">Newly glazed favourites</h2>
+        </div>
+        <button onClick="{{ goShop }}" style="background:none; border:1px solid #c9c2b2; cursor:pointer; font-family:inherit; font-size:15px; color:#3a372f; padding:11px 22px; border-radius:40px;" style-hover="background:#efe9dd;">View all {{ productCount }}</button>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+        <sc-for list="{{ featured }}" as="p" hint-placeholder-count="4">
+          <dc-import name="ProductCard" p="{{ p }}" hint-size="100%,360px"></dc-import>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section id="story" style="background:#eee8dc; margin-top:64px;">
+      <div style="max-width:1240px; margin:0 auto; padding:72px 32px; display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;">
+        <div style="position:relative;">
+          <div style="aspect-ratio:1/1; border-radius:50%; overflow:hidden; background:#ded7c8; max-width:400px;">
+            <sc-if value="{{ aboutImage }}" hint-placeholder-val="{{ false }}">{{ aboutEl }}</sc-if>
+            <sc-if value="{{ noAboutImage }}" hint-placeholder-val="{{ true }}"><image-slot id="maker" shape="rect" fit="cover" placeholder="Drop a photo of Julia at the wheel"></image-slot></sc-if>
+          </div>
+        </div>
+        <div>
+          <span style="font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#8a9284;">The hands behind the clay</span>
+          <h2 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:38px; letter-spacing:-0.5px; margin:12px 0 20px; color:#33302a;">Hello, I'm Julia.</h2>
+          <p style="font-size:17px; line-height:1.7; color:#5f5a4f; margin:0 0 18px; max-width:560px;">I trained as a biologist — a PhD, in fact — but I've always needed to make things with my hands as well as my mind. I started throwing pottery in 2019, and moved from Saint Petersburg to a small town near Nuremberg in 2023, studio and all.</p>
+          <p style="font-size:17px; line-height:1.7; color:#5f5a4f; margin:0 0 28px; max-width:560px;">A scientist can't resist an experiment, so my shelves are full of glaze tests and quiet colour studies. Every mug, bowl and vase here is thrown, trimmed, glazed and fired by me. Let's make each of your days a little more special.</p>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:22px; color:#6f7f6a; font-style:italic;">Julia K.</span>
+            <a href="https://www.instagram.com/jk_and_clay/" style="font-size:15px; display:inline-flex; align-items:center; gap:7px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+              @jk_and_clay
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section style="max-width:1240px; margin:0 auto; padding:0 32px 72px;">
+      <div style="background:#6f7f6a; border-radius:28px; padding:56px; display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:center;">
+        <div>
+          <h2 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:32px; letter-spacing:-0.5px; margin:0 0 12px; color:#f7f4ee;">Join the studio letter</h2>
+          <p style="font-size:16px; line-height:1.6; color:#dfe4da; margin:0; max-width:420px;">New glaze drops, restocks and slow-living notes — sent once a month, never more.</p>
+        </div>
+        <form onSubmit="{{ noSubmit }}" style="display:flex; gap:10px; background:#f7f4ee; padding:8px; border-radius:40px;">
+          <input type="email" placeholder="Your email" style="flex:1; border:none; background:none; outline:none; font-family:inherit; font-size:15px; padding:10px 16px; color:#3a372f;">
+          <button type="submit" style="background:#33302a; color:#f7f4ee; border:none; cursor:pointer; font-family:inherit; font-size:15px; font-weight:500; padding:12px 24px; border-radius:40px; white-space:nowrap;">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <!-- ================= SHOP ================= -->
+  <sc-if value="{{ isShop }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1240px; margin:0 auto; padding:48px 32px 72px;">
+    <div style="margin-bottom:28px;">
+      <span style="font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#8a9284;">The collection</span>
+      <h1 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:44px; letter-spacing:-0.7px; margin:8px 0 0; color:#33302a;">Every piece, one of a kind</h1>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; padding-bottom:26px; border-bottom:1px solid #e6e0d4; margin-bottom:32px;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+          <button onClick="{{ f.set }}" style="cursor:pointer; font-family:inherit; font-size:14px; padding:10px 20px; border-radius:40px; border:1px solid {{ f.border }}; background:{{ f.bg }}; color:{{ f.color }};">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <span style="font-size:14px; color:#9a9384;">{{ resultLabel }}</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+      <sc-for list="{{ filtered }}" as="p" hint-placeholder-count="8">
+        <dc-import name="ProductCard" p="{{ p }}" hint-size="100%,360px"></dc-import>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= PRODUCT ================= -->
+  <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1240px; margin:0 auto; padding:32px 32px 72px;">
+    <div style="font-size:14px; color:#9a9384; margin-bottom:26px;">
+      <button onClick="{{ goShop }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:14px; color:#9a9384; padding:0;" style-hover="color:#6f7f6a;">Shop</button>
+      <span style="margin:0 8px;">/</span>
+      <span style="color:#6b665b;">{{ current.category }}</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:start;">
+      <div style="position:sticky; top:100px;">
+        <div style="aspect-ratio:1/1; border-radius:24px; overflow:hidden; background:{{ current.swatch }}; margin-bottom:14px;">
+          {{ current.mainImageEl }}
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;">
+          <sc-for list="{{ current.thumbs }}" as="t" hint-placeholder-count="4">
+            <div style="aspect-ratio:1/1; border-radius:14px; overflow:hidden; background:{{ t.bg }};">
+              {{ t.imageEl }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="color:#c99a5e; font-size:14px; letter-spacing:2px; margin-bottom:14px;">★★★★★ <span style="color:#9a9384; letter-spacing:0;">&nbsp; 4.9 (101 reviews)</span></div>
+        <h1 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:38px; line-height:1.12; letter-spacing:-0.6px; margin:0 0 14px; color:#33302a;">{{ current.name }}</h1>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-size:28px; color:#33302a; margin-bottom:24px;">{{ current.price }}</div>
+        <p style="font-size:17px; line-height:1.7; color:#5f5a4f; margin:0 0 28px;">{{ current.desc }}</p>
+
+        <div style="margin-bottom:24px;">
+          <div style="font-size:13px; letter-spacing:0.5px; text-transform:uppercase; color:#8a9284; margin-bottom:12px;">Glaze — {{ current.colorName }}</div>
+          <div style="display:flex; gap:12px;">
+            <sc-for list="{{ current.glazes }}" as="g" hint-placeholder-count="4">
+              <span title="{{ g.name }}" style="width:38px; height:38px; border-radius:50%; background:{{ g.hex }}; border:2px solid {{ g.ring }}; cursor:pointer; box-shadow:0 0 0 3px #f7f4ee inset;"></span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:14px; align-items:center; margin-bottom:24px;">
+          <div style="display:flex; align-items:center; border:1px solid #d8d1c2; border-radius:40px; overflow:hidden;">
+            <button onClick="{{ decQty }}" style="background:none; border:none; cursor:pointer; font-size:20px; color:#6b665b; width:44px; height:48px;">−</button>
+            <span style="min-width:28px; text-align:center; font-size:16px; font-weight:600;">{{ qty }}</span>
+            <button onClick="{{ incQty }}" style="background:none; border:none; cursor:pointer; font-size:20px; color:#6b665b; width:44px; height:48px;">+</button>
+          </div>
+          <button onClick="{{ addToCart }}" style="flex:1; background:#6f7f6a; color:#f7f4ee; border:none; cursor:pointer; font-family:inherit; font-size:16px; font-weight:500; padding:16px 30px; border-radius:40px;" style-hover="background:#5c6a58;">Add to cart — {{ current.price }}</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:14px; color:#7c7566; margin-bottom:34px;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6L9 17l-5-5"></path></svg>
+          Ready to ship in 2–4 days · Carefully packed · Ships from Germany
+        </div>
+
+        <div style="border-top:1px solid #e6e0d4;">
+          <sc-for list="{{ details }}" as="d" hint-placeholder-count="3">
+            <div style="border-bottom:1px solid #e6e0d4; padding:20px 0;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <span style="color:#8a9284;">{{ d.icon }}</span>
+                <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:17px; font-weight:600; color:#33302a;">{{ d.title }}</span>
+              </div>
+              <p style="font-size:15px; line-height:1.6; color:#6b665b; margin:0 0 0 30px;">{{ d.body }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:72px;">
+      <h2 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:28px; letter-spacing:-0.4px; margin:0 0 26px; color:#33302a;">You may also like</h2>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:24px;">
+        <sc-for list="{{ related }}" as="p" hint-placeholder-count="4">
+          <dc-import name="ProductCard" p="{{ p }}" hint-size="100%,360px"></dc-import>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= BLOG ================= -->
+  <sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1240px; margin:0 auto; padding:48px 32px 72px;">
+    <div style="max-width:640px; margin-bottom:40px;">
+      <span style="font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#8a9284;">From the studio</span>
+      <h1 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:44px; letter-spacing:-0.7px; margin:8px 0 14px; color:#33302a;">The Journal</h1>
+      <p style="font-size:18px; line-height:1.6; color:#6b665b; margin:0;">Slow-living notes, studio diaries and the story behind each piece — written between firings.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px;">
+      <sc-for list="{{ blogPosts }}" as="post" hint-placeholder-count="6">
+        <article onClick="{{ post.open }}" style="display:flex; flex-direction:column; cursor:pointer;">
+          <div style="aspect-ratio:4/3; border-radius:18px; overflow:hidden; background:{{ post.tint }}; margin-bottom:16px;">
+            {{ post.imageEl }}
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+            <span style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#6f7f6a; background:#e6ede2; padding:4px 10px; border-radius:20px;">{{ post.tag }}</span>
+            <span style="font-size:13px; color:#a09984;">{{ post.date }}</span>
+          </div>
+          <h3 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:21px; line-height:1.25; letter-spacing:-0.3px; margin:0 0 10px; color:#33302a;">{{ post.title }}</h3>
+          <p style="font-size:15px; line-height:1.6; color:#6b665b; margin:0 0 14px;">{{ post.excerpt }}</p>
+          <span style="font-size:14px; color:#6f7f6a; display:inline-flex; align-items:center; gap:6px; margin-top:auto;">Read the note <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= ARTICLE ================= -->
+  <sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:760px; margin:0 auto; padding:40px 32px 80px;">
+    <button onClick="{{ goBlog }}" style="background:none; border:none; cursor:pointer; font-family:inherit; font-size:14px; color:#6f7f6a; padding:0; display:inline-flex; align-items:center; gap:7px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>
+      Back to the Journal
+    </button>
+    <div style="display:flex; align-items:center; gap:10px; margin:26px 0 16px;">
+      <span style="font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#6f7f6a; background:#e6ede2; padding:4px 10px; border-radius:20px;">{{ article.tag }}</span>
+      <span style="font-size:13px; color:#a09984;">{{ article.date }}</span>
+    </div>
+    <h1 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:40px; line-height:1.12; letter-spacing:-0.7px; margin:0; color:#33302a; text-wrap:balance;">{{ article.title }}</h1>
+    <div style="aspect-ratio:16/9; border-radius:22px; overflow:hidden; background:{{ article.tint }}; margin:30px 0 36px;">{{ article.coverEl }}</div>
+    <sc-for list="{{ article.paragraphs }}" as="para" hint-placeholder-count="4">
+      <p style="font-size:18px; line-height:1.8; color:#4a463c; margin:0 0 22px; text-wrap:pretty;">{{ para }}</p>
+    </sc-for>
+    <div style="margin-top:40px; padding-top:28px; border-top:1px solid #e6e0d4; display:flex; align-items:center; gap:14px;">
+      <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:20px; color:#6f7f6a; font-style:italic;">Julia K.</span>
+      <span style="font-size:14px; color:#9a9384;">JK &amp; Clay studio</span>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ================= LAB JOURNAL ================= -->
+  <sc-if value="{{ isLab }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1240px; margin:0 auto; padding:48px 32px 72px;">
+    <div style="background:#eee8dc; border-radius:24px; padding:44px 48px; margin-bottom:40px; display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:center;">
+      <div>
+        <span style="font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#8a9284;">Glaze research · open notebook</span>
+        <h1 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:42px; letter-spacing:-0.7px; margin:10px 0 14px; color:#33302a;">The Lab Journal</h1>
+        <p style="font-size:17px; line-height:1.65; color:#5f5a4f; margin:0; max-width:520px;">Before biology, I fell for the scientific method — and I never really let it go. Every glaze here starts as a numbered test tile: a recipe, a hypothesis, and a firing. These are my working notes, kept in the open.</p>
+      </div>
+      <div style="display:flex; gap:26px; justify-content:flex-end;">
+        <div style="text-align:center;"><div style="font-family:'Schibsted Grotesk',sans-serif; font-size:30px; font-weight:600; color:#33302a;">47</div><div style="font-size:12px; color:#9a9384; margin-top:2px;">batches logged</div></div>
+        <div style="width:1px; background:#dcd3c2;"></div>
+        <div style="text-align:center;"><div style="font-family:'Schibsted Grotesk',sans-serif; font-size:30px; font-weight:600; color:#33302a;">1200°C</div><div style="font-size:12px; color:#9a9384; margin-top:2px;">cone 6 firing</div></div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+      <sc-for list="{{ labEntries }}" as="e" hint-placeholder-count="6">
+        <article style="background:#fff; border:1px solid #ece6d9; border-radius:20px; padding:26px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;">
+            <span style="font-family:ui-monospace,'SFMono-Regular',Menlo,monospace; font-size:13px; letter-spacing:0.5px; color:#a09984;">BATCH {{ e.id }}</span>
+            <span style="font-size:11px; letter-spacing:0.5px; text-transform:uppercase; color:{{ e.statusColor }}; border:1px solid {{ e.statusColor }}; padding:3px 10px; border-radius:20px;">{{ e.status }}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px;">
+            <span style="width:52px; height:52px; border-radius:50%; background:{{ e.hex }}; box-shadow:0 0 0 4px #f7f4ee inset, 0 2px 8px -2px rgba(90,80,60,0.4); flex-shrink:0;"></span>
+            <h3 style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:18px; line-height:1.25; margin:0; color:#33302a;">{{ e.title }}</h3>
+          </div>
+          <p style="font-size:14px; line-height:1.6; color:#6b665b; margin:0; padding-top:14px; border-top:1px solid #efe9dd;">{{ e.result }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer style="background:#33302a; color:#d9d3c6; margin-top:auto;">
+    <div style="max-width:1240px; margin:0 auto; padding:56px 32px 34px; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;">
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="width:38px; height:38px; border-radius:50%; background:#6f7f6a; color:#f7f4ee; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600;">jk</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:19px; color:#f7f4ee;">JK &amp; Clay</span>
+        </div>
+        <p style="font-size:14px; line-height:1.6; color:#a9a291; max-width:280px; margin:0;">Wheel-thrown stoneware and porcelain, made one piece at a time by Julia near Nuremberg, Germany.</p>
+      </div>
+      <div>
+        <div style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#8f8878; margin-bottom:14px;">Shop</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14px;">
+          <a href="#" onClick="{{ goShop }}" style="color:#d9d3c6;">Mugs &amp; cups</a>
+          <a href="#" onClick="{{ goShop }}" style="color:#d9d3c6;">Vases</a>
+          <a href="#" onClick="{{ goShop }}" style="color:#d9d3c6;">Plates &amp; bowls</a>
+          <a href="#" onClick="{{ goShop }}" style="color:#d9d3c6;">Gift cards</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#8f8878; margin-bottom:14px;">Studio</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14px;">
+          <a href="#story" style="color:#d9d3c6;">Our story</a>
+          <a href="#" onClick="{{ goBlog }}" style="color:#d9d3c6;">Journal</a>
+          <a href="#" onClick="{{ goLab }}" style="color:#d9d3c6;">Lab journal</a>
+          <a href="#" style="color:#d9d3c6;">Care &amp; use</a>
+          <a href="#" style="color:#d9d3c6;">Shipping &amp; returns</a>
+          <a href="#" style="color:#d9d3c6;">Custom orders</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; letter-spacing:1px; text-transform:uppercase; color:#8f8878; margin-bottom:14px;">Say hello</div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:14px;">
+          <a href="https://www.instagram.com/jk_and_clay/" style="color:#d9d3c6;">@jk_and_clay</a>
+          <a href="#" style="color:#d9d3c6;">Contact</a>
+          <a href="#" style="color:#d9d3c6;">Newsletter</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #4a463c;">
+      <div style="max-width:1240px; margin:0 auto; padding:20px 32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:13px; color:#8f8878;">
+        <span>© 2026 JK &amp; Clay · Handmade in Germany</span>
+        <span>Every piece is unique — colours may gently vary.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'home', productSlug: null, cat: 'all', qty: 1, cart: 0, products: [], loaded: false, blog: [], blogSlug: null, blogBody: '', lab: [], site: {} };
+
+  base = 'products/';
+
+  catMeta = {
+    all:    { label: 'All' },
+    mugs:   { label: 'Mugs & cups', long: 'Mugs & cups' },
+    vases:  { label: 'Vases', long: 'Vases' },
+    plates: { label: 'Plates & dishes', long: 'Plates' },
+    bowls:  { label: 'Bowls', long: 'Bowls' },
+  };
+
+  statusColor(s) { return s === 'Keeper' ? '#6f7f6a' : (s === 'Refining' ? '#c08a6a' : '#a59f90'); }
+
+  fmtPrice(v) { return '€' + Number(v).toFixed(2); }
+
+  imgEl(url, alt) {
+    if (!url) return null;
+    return React.createElement('img', { src: url, alt: alt || '', style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } });
+  }
+
+  componentDidMount() { this.loadCatalog(); this.loadBlog(); this.loadLab(); this.loadSite(); }
+
+  async loadCatalog() {
+    try {
+      const idx = await fetch(this.base + 'index.json').then(r => r.json());
+      const items = await Promise.all(idx.map(async (slug) => {
+        const p = await fetch(this.base + slug + '/product.json').then(r => r.json());
+        return { ...p, slug };
+      }));
+      this.setState({ products: items, loaded: true, productSlug: items.length ? items[0].slug : null });
+    } catch (e) {
+      console.warn('Catalog load failed:', e);
+      this.setState({ loaded: true });
+    }
+  }
+
+  async loadBlog() {
+    try {
+      const idx = await fetch('blog/index.json').then(r => r.json());
+      const items = await Promise.all(idx.map(async (slug) => {
+        const p = await fetch('blog/' + slug + '/post.json').then(r => r.json());
+        return { ...p, slug, image: p.image ? ('blog/' + slug + '/' + p.image) : null };
+      }));
+      this.setState({ blog: items });
+    } catch (e) { console.warn('Blog load failed:', e); }
+  }
+
+  async loadLab() {
+    try {
+      const notes = await fetch('lab/notes.json').then(r => r.json());
+      this.setState({ lab: notes });
+    } catch (e) { console.warn('Lab load failed:', e); }
+  }
+
+  async loadSite() {
+    try {
+      const site = await fetch('images/site.json').then(r => r.json());
+      this.setState({ site: site || {} });
+    } catch (e) { console.warn('Site config load failed:', e); }
+  }
+
+  scrollTop() { try { window.scrollTo(0, 0); } catch (e) {} }
+
+  renderVals() {
+    const s = this.state;
+    const go = (page) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ page }); this.scrollTop(); };
+    const openProduct = (slug) => { this.setState({ page: 'product', productSlug: slug, qty: 1 }); this.scrollTop(); };
+    const addToCart = (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState(st => ({ cart: st.cart + (st.page === 'product' ? st.qty : 1) })); };
+    const openPost = (slug) => {
+      this.setState({ page: 'article', blogSlug: slug, blogBody: '' });
+      this.scrollTop();
+      fetch('blog/' + slug + '/article.md').then(r => r.text()).then(txt => this.setState({ blogBody: txt })).catch(() => {});
+    };
+
+    const decorate = (p) => {
+      const image = (p.images && p.images[0]) ? (this.base + p.slug + '/' + p.images[0]) : null;
+      return {
+        ...p,
+        cat: p.category,
+        catLabel: (this.catMeta[p.category] || {}).long,
+        price: this.fmtPrice(p.price),
+        image,
+        imageEl: this.imgEl(image, p.name),
+        open: () => openProduct(p.slug),
+        slotId: 'prod-' + p.slug,
+      };
+    };
+    const all = this.state.products.map(decorate);
+
+    const filtered = s.cat === 'all' ? all : all.filter(p => p.cat === s.cat);
+
+    const filters = ['all', 'mugs', 'vases', 'plates', 'bowls'].map(k => {
+      const active = s.cat === k;
+      return {
+        label: this.catMeta[k].label,
+        set: () => this.setState({ cat: k }),
+        bg: active ? '#6f7f6a' : '#f7f4ee',
+        color: active ? '#f7f4ee' : '#5f5a4f',
+        border: active ? '#6f7f6a' : '#d8d1c2',
+      };
+    });
+
+    const categories = [
+      { key: 'mugs', label: 'Mugs & cups', bg: '#e7e1d4' },
+      { key: 'vases', label: 'Vases', bg: '#dde3d6' },
+      { key: 'plates', label: 'Plates & dishes', bg: '#e9dfd2' },
+      { key: 'bowls', label: 'Bowls', bg: '#e3ddd0' },
+    ].map(c => ({
+      ...c,
+      count: this.state.products.filter(p => p.category === c.key).length,
+      go: () => { this.setState({ page: 'shop', cat: c.key }); this.scrollTop(); },
+    }));
+
+    const curBase = all.find(p => p.slug === s.productSlug) || all[0] || null;
+    const thumbTints = ['#efe9dd', '#e5ddce', '#e9e1d1', '#dde2d6'];
+    let current = { thumbs: [], glazes: [] };
+    if (curBase) {
+      const imgs = (curBase.images || []).map(f => this.base + curBase.slug + '/' + f);
+      current = {
+        ...curBase,
+        category: (this.catMeta[curBase.cat] || {}).long,
+        mainImage: imgs[0] || null,
+        mainImageEl: this.imgEl(imgs[0], curBase.name),
+        thumbs: [0, 1, 2, 3].map(i => ({ id: curBase.slotId + '-t' + i, bg: thumbTints[i], image: imgs[i] || null, imageEl: this.imgEl(imgs[i], curBase.name) })),
+        desc: curBase.description,
+        glazes: [
+          { name: curBase.colorName, hex: curBase.glaze, ring: '#6f7f6a' },
+          { name: 'Sky blue', hex: '#a9c4d4', ring: 'transparent' },
+          { name: 'Speckled cream', hex: '#d8caa9', ring: 'transparent' },
+          { name: 'Fern green', hex: '#aec19c', ring: 'transparent' },
+        ],
+      };
+    }
+
+    const related = curBase ? all.filter(p => p.cat === curBase.cat && p.slug !== curBase.slug).slice(0, 4) : [];
+    const relatedFilled = related.length ? related : all.filter(p => !curBase || p.slug !== curBase.slug).slice(0, 4);
+
+    const blogPosts = this.state.blog.map(post => ({
+      ...post,
+      imageEl: this.imgEl(post.image, post.title),
+      open: () => openPost(post.slug),
+    }));
+
+    const artBase = this.state.blog.find(p => p.slug === s.blogSlug) || null;
+    let article = { paragraphs: [] };
+    if (artBase) {
+      article = {
+        ...artBase,
+        coverEl: this.imgEl(artBase.image, artBase.title),
+        paragraphs: (this.state.blogBody || '').split(/\n\s*\n/).map(t => t.trim()).filter(Boolean),
+      };
+    }
+
+    const labEntries = this.state.lab.map(e => ({ ...e, statusColor: this.statusColor(e.status) }));
+
+    const site = this.state.site || {};
+    const heroSrc = site.hero ? ('images/' + site.hero) : null;
+    const aboutSrc = site.about ? ('images/' + site.about) : null;
+
+    const details = [
+      { title: 'Materials & size', icon: '◍', body: 'High-fired stoneware, food-safe glaze. Holds roughly 400 ml. Dishwasher and microwave safe.' },
+      { title: 'Care', icon: '❋', body: 'Dishwasher safe, though a gentle hand-wash keeps the glaze glowing longest. Avoid sudden temperature changes.' },
+      { title: 'Shipping', icon: '✦', body: 'Ready to ship in 2–4 days from Germany, wrapped snugly for a safe journey. Worldwide shipping available.' },
+    ];
+
+    const resultCount = filtered.length;
+
+    return {
+      isHome: s.page === 'home',
+      isShop: s.page === 'shop',
+      isProduct: s.page === 'product',
+      isBlog: s.page === 'blog',
+      isArticle: s.page === 'article',
+      isLab: s.page === 'lab',
+      goHome: go('home'),
+      goShop: go('shop'),
+      goBlog: go('blog'),
+      goLab: go('lab'),
+      blogColor: (s.page === 'blog' || s.page === 'article') ? '#6f7f6a' : '#3a372f',
+      labColor: s.page === 'lab' ? '#6f7f6a' : '#3a372f',
+      blogPosts,
+      article,
+      labEntries,
+      heroImage: heroSrc,
+      noHeroImage: !heroSrc,
+      heroEl: this.imgEl(heroSrc, 'JK & Clay ceramics'),
+      aboutImage: aboutSrc,
+      noAboutImage: !aboutSrc,
+      aboutEl: this.imgEl(aboutSrc, 'Julia at the wheel'),
+      noSubmit: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+      homeColor: s.page === 'home' ? '#6f7f6a' : '#3a372f',
+      shopColor: s.page === 'shop' ? '#6f7f6a' : '#3a372f',
+      cart: s.cart,
+      hasCart: s.cart > 0,
+      addToCart,
+      featured: all.slice(0, 4),
+      productCount: all.length,
+      filtered,
+      filters,
+      categories,
+      current,
+      related: relatedFilled,
+      details,
+      qty: s.qty,
+      incQty: () => this.setState(st => ({ qty: st.qty + 1 })),
+      decQty: () => this.setState(st => ({ qty: Math.max(1, st.qty - 1) })),
+      resultLabel: resultCount + (resultCount === 1 ? ' piece' : ' pieces'),
+    };
+  }
+}
+</script>
+</body>
+</html>

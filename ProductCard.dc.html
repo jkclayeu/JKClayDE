@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="image-slot.js"></script>
+<style>
+  .jkcard { transition: transform .25s ease; }
+  .jkcard:hover { transform: translateY(-4px); }
+  .jkcard:hover .jkcard-img { box-shadow: 0 22px 44px -22px rgba(90,80,60,0.45); }
+  .jkcard:hover .jkcard-add { background:#6f7f6a; color:#f7f4ee; border-color:#6f7f6a; }
+</style>
+</helmet>
+<div class="jkcard" onClick="{{ p.open }}" style="cursor:pointer; display:flex; flex-direction:column; font-family:'Hanken Grotesk',system-ui,sans-serif;">
+  <div class="jkcard-img" style="position:relative; aspect-ratio:1/1; border-radius:18px; overflow:hidden; background:{{ p.swatch }}; transition:box-shadow .25s ease; margin-bottom:15px;">
+    {{ p.imageEl }}
+  </div>
+  <span style="font-size:12px; letter-spacing:1px; text-transform:uppercase; color:#a09984; margin-bottom:6px;">{{ p.colorName }}</span>
+  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px;">
+    <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:17px; font-weight:500; line-height:1.25; color:#33302a;">{{ p.name }}</span>
+    <span class="jkcard-add" style="flex-shrink:0; width:34px; height:34px; border-radius:50%; border:1px solid #d8d1c2; background:#f7f4ee; color:#6b665b; display:flex; align-items:center; justify-content:center; transition:all .2s ease;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+    </span>
+  </div>
+  <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:16px; color:#5f5a4f; margin-top:8px;">{{ p.price }}</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:260,&quot;height&quot;:360},&quot;p&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;any&quot;}}"></script>
+</body>
+</html>

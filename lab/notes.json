@@ -1,0 +1,44 @@
+[
+  {
+    "id": "L-047",
+    "hex": "#d8b7a6",
+    "title": "Rose-ash over speckled buff",
+    "status": "Keeper",
+    "result": "A warm blush that breaks softly on the rims. Stable at cone 6, no crawling across three test tiles."
+  },
+  {
+    "id": "L-046",
+    "hex": "#a9c4d4",
+    "title": "Sky blue, 3% rutile",
+    "status": "Refining",
+    "result": "Lovely depth on vertical walls but pools too dark in the wells. Reducing rutile to 1.5% next batch."
+  },
+  {
+    "id": "L-045",
+    "hex": "#aec19c",
+    "title": "Fern celadon on white stoneware",
+    "status": "Keeper",
+    "result": "Translucent and calm; takes brushwork beautifully. This one becomes the botanical plate glaze."
+  },
+  {
+    "id": "L-044",
+    "hex": "#e0a98f",
+    "title": "Coral matte, layered",
+    "status": "Testing",
+    "result": "Gorgeous velvet surface, but slightly dry to the touch. Trying a thin gloss overcoat on the drinking edge."
+  },
+  {
+    "id": "L-043",
+    "hex": "#cbb6cf",
+    "title": "Pink & sky double-dip",
+    "status": "Keeper",
+    "result": "The overlap line where the two glazes meet is the whole point — soft lavender halo every firing."
+  },
+  {
+    "id": "L-042",
+    "hex": "#d8caa9",
+    "title": "Natural speckle, iron-rich clay",
+    "status": "Keeper",
+    "result": "Barely-there clear over a toasty body. The freckles do all the work; nothing to fix here."
+  }
+]
