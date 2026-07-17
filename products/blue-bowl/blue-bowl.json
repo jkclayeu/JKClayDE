@@ -1,0 +1,10 @@
+{
+  "name": "Blue Breakfast Bowl",
+  "category": "bowls",
+  "price": 32.00,
+  "colorName": "What color name?",
+  "swatch": "#dce3d3",
+  "glaze": "#aec19c",
+  "description": "A short, warm description of the piece.",
+  "images": ["DSC00117.jpg"]
+}
